@@ -19,6 +19,7 @@ def get_features(image_path):
     print(vgg_model_fc7_preds[0].shape)
     return vgg_model_fc7_preds[0]
 
+
 if __name__ == "__main__":
 
     get_features("matt.jpg")
