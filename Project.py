@@ -4,7 +4,7 @@ from keras.layers import Input
 from keras_vggface import VGGFace
 import numpy as np
 from keras.preprocessing import image
-#from scipy.io import savemat
+from scipy.io import savemat
 
 
 # FC7 Features
@@ -20,7 +20,7 @@ def get_features(image_path):
     x = image.img_to_array(img)
     x = np.expand_dims(x, axis=0)
     vgg_model_fc7_preds = vgg_model_fc7.predict(x)
-    print(vgg_model_fc7_preds[0].shape)
+    #print(vgg_model_fc7_preds[0].shape)
     return vgg_model_fc7_preds[0]
 
 
@@ -41,15 +41,15 @@ def create_features(path, age_group, list):
         image_path = path+"/"+age_group+"/"+image
         features = get_features(image_path)
         list.append([features, label, age, age_group])
-        print(image_path)
+        #print(image_path)
     return list
 
 
 def save_features(old_features, young_features):
-    #savemat('datosImagenes.mat', {'old': old_features, 'young': young_features})
+    savemat('datosImagenes.mat', {'old': old_features, 'young': young_features})
     return
 
+
 if __name__ == "__main__":
-    #young_descriptors, old_descriptors =
-    create_all_features("divided_2")
-    #save_features(old_descriptors, young_descriptors)
+    young_descriptors, old_descriptors = create_all_features("divided_2")
+    save_features(old_descriptors, young_descriptors)
